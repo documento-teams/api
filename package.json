@@ -27,7 +27,7 @@
     "sequelize": "^6.37.5"
   },
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "bun run index.js",
+    "dev": "bun run --hot index.js"
   }
 }
