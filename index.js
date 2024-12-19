@@ -3,6 +3,7 @@ import cors from "@fastify/cors";
 import fastifyJwt from "@fastify/jwt";
 import dotenv from "dotenv";
 import { connectDbSequelize } from "./database/sequelizeConnection.js";
+import authRoutes from "./routes/authRoutes.js";
 
 const fastify = Fastify({ logger: true });
 
@@ -11,6 +12,8 @@ dotenv.config();
 fastify.register(fastifyJwt, {
   secret: process.env.JWT_SECRET,
 });
+
+fastify.register(authRoutes, { prefix: "/api/auth" });
 
 fastify.register(cors, {
   origin: (origin, cb) => {
