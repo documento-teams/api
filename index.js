@@ -3,7 +3,7 @@ import cors from "@fastify/cors";
 import fastifyJwt from "@fastify/jwt";
 import dotenv from "dotenv";
 import { connectDbSequelize } from "./database/sequelizeConnection.js";
-import authRoutes from "./routes/authRoutes.js";
+import authRoutes from "./routes/auth_routes.js";
 
 const fastify = Fastify({ logger: true });
 
