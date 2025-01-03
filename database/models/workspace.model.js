@@ -39,3 +39,5 @@ const Workspace = sequelize.define("workspace", {
     },
   },
 });
+
+export default Workspace;

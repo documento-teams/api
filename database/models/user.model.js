@@ -1,4 +1,4 @@
-import { DataTypes } from "sequelize";
+import { DataTypes } from "@sequelize/core";
 import { sequelize } from "../sequelizeConnection.js";
 
 const User = sequelize.define("user", {
@@ -14,6 +14,7 @@ const User = sequelize.define("user", {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
   password: {
     type: DataTypes.STRING,
@@ -23,6 +24,9 @@ const User = sequelize.define("user", {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
   },
+},{
+  tableName: "users",
+  timestamps: true,
 });
 
 export default User;
