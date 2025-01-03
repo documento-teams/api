@@ -1,5 +1,9 @@
+import { findUserByEmail } from "../models/user_model.js";
+import bcrypt from "bcrypt";
+import { generateToken } from "../utils/jwt.js";
+
 export const login = async (req, reply) => {
-  const { email, password } = request.body;
+  const { email, password } = req.body;
   try {
     const user = await findUserByEmail(email);
     if (!user) {
