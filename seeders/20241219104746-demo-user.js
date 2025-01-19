@@ -6,7 +6,6 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     try {
       const { hashPassword } = await import("../utils/hashPassword.js");
-      console.log("hashPassword have been imported")
       await queryInterface.bulkInsert(
         "users",
         [
