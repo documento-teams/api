@@ -1,7 +1,5 @@
-import { DataTypes } from "sequelize";
+import { DataTypes } from "@sequelize/core";
 import { sequelize } from "../sequelizeConnection.js";
-import User from "./user.model.js";
-import Document from "./document.model.js";
 
 const Workspace = sequelize.define("workspace", {
   id: {
@@ -13,28 +11,27 @@ const Workspace = sequelize.define("workspace", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  description: {
-    type: DataTypes.TEXT,
+  workspaceAuthor: {
+    type: DataTypes.INTEGER,
     allowNull: false,
-  },
-  workspace_owner: {
-    type: DataTypes.INTEGER,
     references: {
-      model: User,
+      model: "user",
       key: "id",
     },
   },
-  documents: {
-    type: DataTypes.ARRAY(DataTypes.INTEGER),
+  docId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
     references: {
-      model: Document,
+      model: "document",
       key: "id",
     },
   },
-  parent_workspace: {
+  parentWorkspace: {
     type: DataTypes.INTEGER,
+    allowNull: true,
     references: {
-      model: Workspace,
+      model: "workspace",
       key: "id",
     },
   },
