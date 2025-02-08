@@ -1,5 +1,4 @@
-"use strict";
-
+'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -10,9 +9,9 @@ module.exports = {
         "users",
         [
           {
-            fullname: "John Doe",
-            email: "john.doe@example.com",
-            password: await hashPassword("hashed_password_1"),
+            fullname: "Thomas Grare",
+            email: "saithomas.gbz@gmail.com",
+            password: await hashPassword("yopassword123"),
             active: true,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -26,7 +25,6 @@ module.exports = {
             updatedAt: new Date(),
           },
         ],
-        {}
       );
       console.log("Demo-user Seeders executed successfully.");
     } catch (error) {
