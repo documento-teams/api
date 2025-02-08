@@ -22,6 +22,14 @@ const Document = sequelize.define("document", {
       model: "user",
       key: "id",
     },
+  },
+  workspaceId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: "workspace",
+      key: "id"
+    }
   }
 }, {
   timestamps: true,

@@ -19,14 +19,6 @@ const Workspace = sequelize.define("workspace", {
       key: "id",
     },
   },
-  docId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: "document",
-      key: "id",
-    },
-  },
   parentWorkspace: {
     type: DataTypes.INTEGER,
     allowNull: true,
