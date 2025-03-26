@@ -4,7 +4,7 @@ import fastifyJwt from "@fastify/jwt";
 import dotenv from "dotenv";
 import { connectDbSequelize } from "./database/sequelizeConnection.js";
 import authRoutes from "./routes/auth_routes.js";
-import docRoutes from "./routes/document_routes.js";
+import docRoutes from "./routes/documento_routes.js";
 
 const fastify = Fastify({ logger: true });
 
