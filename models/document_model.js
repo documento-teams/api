@@ -1,13 +1,13 @@
 import { models } from "../database/models/index.js";
 
-export const getDocumentoList = async () => {
+export const getDocumentList = async () => {
   const documents = await models.Document.findAll({
     attributes: ["id", "name", "content", "userId", "workspaceId"],
   });
   return documents;
 }
 
-export const findDocumentoById = async (id) => {
+export const findDocumentById = async (id) => {
   try {
     const document = await models.Document.findOne({
       where: {
@@ -21,7 +21,7 @@ export const findDocumentoById = async (id) => {
   }
 };
 
-export const createNewDocumento = async (doc) => {
+export const createNewDocument = async (doc) => {
   try {
     const newDoc = await models.Document.create(doc);
     return newDoc;
@@ -30,7 +30,7 @@ export const createNewDocumento = async (doc) => {
   }
 };
 
-export const deleteDocumento = async (id) => {
+export const deleteDocument = async (id) => {
   try {
     const deletedDoc = await models.Document.destroy({
       where: {
@@ -44,7 +44,7 @@ export const deleteDocumento = async (id) => {
   }
 }
 
-export const updateNewDocumento = async (id, doc) => {
+export const updateNewDocument = async (id, doc) => {
   try {
     const updatedDoc = await models.Document.update(doc, {
       where: {

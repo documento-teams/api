@@ -1,8 +1,8 @@
-import { getDocumentoList , findDocumentoById , createNewDocumento , deleteDocumento , updateNewDocumento } from "../models/documento_model";
+import { getDocumentList , findDocumentById , createNewDocument , deleteDocument , updateNewDocument } from "../models/document_model";
 
-export const getDocumentos = async (req, reply) => {
+export const getDocuments = async (req, reply) => {
   try {
-    const docs = await getDocumentoList();
+    const docs = await getDocumentList();
     return reply.send(docs);
   } catch (error) {
     console.error("Get docs error:", error);
@@ -10,10 +10,10 @@ export const getDocumentos = async (req, reply) => {
   }
 }
 
-export const getDocumentoById = async (req, reply) => {
+export const getDocumentById = async (req, reply) => {
   const { id } = req.params;
   try {
-    const doc = await findDocumentoById(id);
+    const doc = await findDocumentById(id);
     if (!doc) {
       return reply.status(404).send({ error: "Document not found" });
     }
@@ -24,10 +24,10 @@ export const getDocumentoById = async (req, reply) => {
   }
 }
 
-export const createDocumento = async (req, reply) => {
+export const createDocument = async (req, reply) => {
   const doc = req.body;
   try {
-    const newDoc = await createNewDocumento(doc);
+    const newDoc = await createNewDocument(doc);
     return reply.status(201).send(newDoc);
   } catch (error) {
     console.error("Create doc error:", error);
@@ -35,10 +35,10 @@ export const createDocumento = async (req, reply) => {
   }
 }
 
-export const deleteDocumentoById = async (req, reply) => {
+export const deleteDocumentById = async (req, reply) => {
   const { id } = req.params;
   try {
-    const deletedDoc = await deleteDocumento(id);
+    const deletedDoc = await deleteDocument(id);
     if (!deletedDoc) {
       return reply.code(404).send({ error: "Document not found" });
     }
@@ -49,11 +49,11 @@ export const deleteDocumentoById = async (req, reply) => {
   }
 }
 
-export const updateDocumentoById = async (req, reply) => {
+export const updateDocumentById = async (req, reply) => {
   const { id } = req.params;
   const doc = req.body;
   try {
-    const updatedDoc = await updateNewDocumento(id, doc);
+    const updatedDoc = await updateNewDocument(id, doc);
     if (!updatedDoc) {
       return reply.status(404).send({ error: "Document not found" });
     }
