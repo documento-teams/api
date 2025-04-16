@@ -8,12 +8,19 @@ export const getUsersList = async () => {
 };
 
 export const findUserByEmail = async (email) => {
-  const user = await models.User.findOne({
-    where: {
-      email,
-    },
-  });
-  return user;
+  try {
+    const user = await models.User.findOne({
+      where: {
+        email,
+      },
+      // S'il y a un limit ou offset, ajoutez un order
+      order: [['id', 'ASC']] // Ajoutez cette ligne
+    });
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 export const findUserById = async (id) => {

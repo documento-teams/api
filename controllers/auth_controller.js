@@ -1,4 +1,4 @@
-import { findUserByEmail, createUser } from "../models/user_model.js";
+import { findUserByEmail, createUser , findUserById } from "../models/user_model.js";
 import bcrypt from "bcrypt";
 import { generateToken } from "../utils/jwt.js";
 
@@ -14,7 +14,23 @@ export const login = async (req, reply) => {
       return reply.status(401).send({ error: "Not the same password" });
     }
     const token = generateToken({ user });
-    return reply.send({ token, id: user.id });
+    
+    reply.setCookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      path: '/',
+      maxAge: 60 * 60 * 24,
+    });
+
+    return reply.send({ 
+      success: true,
+      user: { 
+        id: user.id, 
+        email: user.email,
+        fullname: user.fullname
+      } 
+    });
   } catch (error) {
     console.error("Login error:", error);
     return reply.status(500).send({ error: "Internal server error" });
@@ -35,6 +51,30 @@ export const register = async (req, reply) => {
       .send({ message: "User registered successfully", user: newUser });
   } catch (error) {
     console.error("Register error:", error);
+    return reply.status(500).send({ error: "Internal server error" });
+  }
+};
+
+export const getMe = async (req, reply) => {
+  try {
+    if (!req.user) {
+      return reply.status(401).send({ error: "Authentication required" });
+    }
+    
+    const userId = req.user.userId;
+    const user = await findUserById(userId);
+    
+    if (!user) {
+      return reply.status(404).send({ error: "User not found" });
+    }
+    
+    return reply.send({
+      id: user.id,
+      email: user.email,
+      fullname: user.fullname
+    });
+  } catch (error) {
+    console.error("Get user error:", error);
     return reply.status(500).send({ error: "Internal server error" });
   }
 };
