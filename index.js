@@ -4,6 +4,7 @@ import fastifyJwt from "@fastify/jwt";
 import dotenv from "dotenv";
 import { connectDbSequelize } from "./database/sequelizeConnection.js";
 import authRoutes from "./routes/auth_routes.js";
+import workspaceRoutes from "./routes/workspace_routes.js";
 import docRoutes from "./routes/documento_routes.js";
 
 const fastify = Fastify({ logger: true });
@@ -15,6 +16,7 @@ fastify.register(fastifyJwt, {
 });
 
 fastify.register(authRoutes, { prefix: "/api/auth" });
+fastify.register(workspaceRoutes, { prefix: "/api/workspaces" });
 fastify.register(docRoutes, { prefix: "/api/docs" });
 
 fastify.register(cors, {
