@@ -2,7 +2,6 @@ import * as WorkspaceModel from "../models/workspace_model.js";
 
 const getWorkspaces = async (req, reply) => {
   try {
-    // Vérifier si l'utilisateur est authentifié
     if (!req.user) {
       return reply.status(401).send({ error: "Unauthorized - Authentication required" });
     }
@@ -18,7 +17,6 @@ const getWorkspaces = async (req, reply) => {
 
 const getWorkspace = async (req, reply) => {
   try {
-    // Vérifier si l'utilisateur est authentifié
     if (!req.user) {
       return reply.status(401).send({ error: "Unauthorized - Authentication required" });
     }
@@ -37,12 +35,10 @@ const getWorkspace = async (req, reply) => {
 
 const addWorkspace = async (req, reply) => {
   try {
-    // Vérifier si l'utilisateur est authentifié
     if (!req.user) {
       return reply.status(401).send({ error: "Unauthorized - Authentication required" });
     }
     
-    // Ajouter l'ID de l'utilisateur connecté
     const workspace = {
       ...req.body,
       workspaceAuthor: req.user.userId
@@ -58,7 +54,6 @@ const addWorkspace = async (req, reply) => {
 
 const removeWorkspace = async (req, reply) => {
   try {
-    // Vérifier si l'utilisateur est authentifié
     if (!req.user) {
       return reply.status(401).send({ error: "Unauthorized - Authentication required" });
     }
@@ -77,7 +72,6 @@ const removeWorkspace = async (req, reply) => {
 
 const modifyWorkspace = async (req, reply) => {
   try {
-    // Vérifier si l'utilisateur est authentifié
     if (!req.user) {
       return reply.status(401).send({ error: "Unauthorized - Authentication required" });
     }
