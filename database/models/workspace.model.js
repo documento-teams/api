@@ -15,7 +15,7 @@ const Workspace = sequelize.define("workspace", {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: "user",
+      model: "users",
       key: "id",
     },
   },
@@ -23,7 +23,7 @@ const Workspace = sequelize.define("workspace", {
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
-      model: "workspace",
+      model: "workspaces",
       key: "id",
     },
   },

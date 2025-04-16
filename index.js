@@ -6,6 +6,7 @@ import { connectDbSequelize } from "./database/sequelizeConnection.js";
 import authRoutes from "./routes/auth_routes.js";
 import workspaceRoutes from "./routes/workspace_routes.js";
 import docRoutes from "./routes/documento_routes.js";
+import authMiddleware from "./middleware/auth_middleware.js";
 
 const fastify = Fastify({ logger: true });
 
@@ -14,6 +15,9 @@ dotenv.config();
 fastify.register(fastifyJwt, {
   secret: process.env.JWT_SECRET,
 });
+
+// Enregistrez le middleware d'authentification
+fastify.register(authMiddleware);
 
 fastify.register(authRoutes, { prefix: "/api/auth" });
 fastify.register(workspaceRoutes, { prefix: "/api/workspaces" });
