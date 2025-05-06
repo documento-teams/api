@@ -7,6 +7,16 @@ const getWorkspacesList = async () => {
   return workspaces;
 }
 
+const getWorkspacesByUser = async (userId) => {
+  const workspaces = await models.Workspace.findAll({
+    where: {
+      workspaceAuthor: userId,
+    },
+    attributes: ["id", "name"],
+  });
+  return workspaces;
+}
+
 const findWorkspaceById = async (id) => {
   try {
     const workspace = await models.Workspace.findOne({
@@ -62,6 +72,7 @@ const updateWorkspace = async (id, workspace) => {
 
 export {
   getWorkspacesList,
+  getWorkspacesByUser,
   findWorkspaceById,
   createWorkspace,
   deleteWorkspace,
