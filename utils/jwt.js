@@ -5,8 +5,7 @@ dotenv.config();
 
 export const generateToken = (user) => {
   const payload = {
-    userId: user.user.dataValues.id,
-    role: user.user.dataValues.role,
+    userId: user.user.id,
   };
   const options = { expiresIn: "24h" };
   const secret = process.env.JWT_SECRET;

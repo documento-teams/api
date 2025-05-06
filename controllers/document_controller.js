@@ -1,4 +1,4 @@
-import { getDocumentList , findDocumentById , createNewDocument , deleteDocument , updateNewDocument } from "../models/document_model";
+import { getDocumentList , findDocumentById , createNewDocument , deleteDocument , updateNewDocument } from "../repository/document_repository.js";
 
 export const getDocuments = async (req, reply) => {
   try {
