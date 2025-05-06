@@ -38,7 +38,12 @@ export const findDocumentById = async (id) => {
 export const createNewDocument = async (doc) => {
   try {
     const newDoc = await prisma.document.create({
-      data: doc,
+      data: {
+        name: doc.name,
+        content: doc.content,
+        documentAuthorId: doc.documentAuthorId,
+        workspaceId: doc.workspaceId,
+      }
     });
     return newDoc;
   } catch (error) {
