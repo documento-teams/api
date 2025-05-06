@@ -68,7 +68,7 @@ export const createUser = async (user) => {
 
 export const deleteUser = async (id) => {
   try {
-    const deletedUser = await prisma.user.deleteMany({
+    const deletedUser = await prisma.user.delete({
       where: {
         id
       }
@@ -81,6 +81,7 @@ export const deleteUser = async (id) => {
 };
 
 export const updateUser = async (id, user) => {
+  console.log("Updating user with ID:", id, "and data:", user);
   try {
     const updatedUser = await prisma.user.update({
       where: {
