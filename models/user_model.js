@@ -8,12 +8,18 @@ export const getUsersList = async () => {
 };
 
 export const findUserByEmail = async (email) => {
-  const user = await models.User.findOne({
-    where: {
-      email,
-    },
-  });
-  return user;
+  try {
+    const user = await models.User.findOne({
+      where: {
+        email,
+      },
+      order: [['id', 'ASC']]
+    });
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 export const findUserById = async (id) => {

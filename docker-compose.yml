@@ -1,6 +1,6 @@
 services:
   postgres:
-    container_name: postgres_container
+    container_name: documento_postgres_${POSTGRES_DB}
     image: postgres:latest
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -8,32 +8,19 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       PGDATA: /data/postgres
     volumes:
-      - postgres:/data/postgres
+      - documento_postgres_data:/data/postgres
+      - ./init-scripts:/docker-entrypoint-initdb.d
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT}"
     networks:
-      - postgres
-    restart: unless-stopped
-
-  pgadmin:
-    container_name: pgadmin_container
-    image: dpage/pgadmin4:latest
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: "${PGADMIN_DEFAULT_PASSWORD}"
-      PGADMIN_CONFIG_SERVER_MODE: "False"
-    volumes:
-      - pgadmin:/var/lib/pgadmin
-    ports:
-      - "${PGADMIN_PORT}:80"
-    networks:
-      - postgres
+      - documento_network
     restart: unless-stopped
 
 networks:
-  postgres:
+  documento_network:
+    name: documento_network_${POSTGRES_DB}
     driver: bridge
 
 volumes:
-  postgres:
-  pgadmin:
+  documento_postgres_data:
+    name: documento_postgres_${POSTGRES_DB}

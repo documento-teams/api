@@ -1,6 +1,7 @@
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import fastifyJwt from "@fastify/jwt";
+import fastifyCookie from "@fastify/cookie"; 
 import dotenv from "dotenv";
 import { connectDbSequelize } from "./database/sequelizeConnection.js";
 import authRoutes from "./routes/auth_routes.js";
@@ -12,16 +13,16 @@ const fastify = Fastify({ logger: true });
 
 dotenv.config();
 
+
+fastify.register(fastifyCookie, {
+  secret: process.env.COOKIE_SECRET || process.env.JWT_SECRET,
+});
+
 fastify.register(fastifyJwt, {
   secret: process.env.JWT_SECRET,
 });
 
-// Enregistrez le middleware d'authentification
 fastify.register(authMiddleware);
-
-fastify.register(authRoutes, { prefix: "/api/auth" });
-fastify.register(workspaceRoutes, { prefix: "/api/workspaces" });
-fastify.register(docRoutes, { prefix: "/api/docs" });
 
 fastify.register(cors, {
   origin: (origin, cb) => {
@@ -33,13 +34,18 @@ fastify.register(cors, {
     cb(new Error("Not allowed"), false);
   },
   methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
+  credentials: true,  
 });
+
+
+fastify.register(authRoutes, { prefix: "/api/auth" });
+fastify.register(workspaceRoutes, { prefix: "/api/workspaces" });
+fastify.register(docRoutes, { prefix: "/api/docs" });
 
 const start = async () => {
   try {
     await connectDbSequelize();
-    await fastify.listen({ port: 3000 });
+    await fastify.listen({ port: 3000, host: '0.0.0.0' });
     console.log("server listening on port 3000");
   } catch (err) {
     console.log(err);
