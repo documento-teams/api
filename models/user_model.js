@@ -13,8 +13,7 @@ export const findUserByEmail = async (email) => {
       where: {
         email,
       },
-      // S'il y a un limit ou offset, ajoutez un order
-      order: [['id', 'ASC']] // Ajoutez cette ligne
+      order: [['id', 'ASC']]
     });
     return user;
   } catch (error) {
