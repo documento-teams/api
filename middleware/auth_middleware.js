@@ -1,5 +1,6 @@
+import fp from "fastify-plugin";
 
-export default fp(async function (fastify, opts) {
+const authMiddleware = fp(async function (fastify, opts) {
   fastify.decorate("authenticate", async function (request, reply) {
     try {
       const token = request.cookies.token;
@@ -15,3 +16,5 @@ export default fp(async function (fastify, opts) {
     }
   });
 });
+
+export default authMiddleware;

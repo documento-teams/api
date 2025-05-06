@@ -2,9 +2,6 @@
   "name": "documento-api",
   "module": "index.js",
   "type": "module",
-  "devDependencies": {
-    "sequelize-cli": "^6.6.2"
-  },
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
     "@fastify/cors": "^10.0.1",
@@ -12,8 +9,7 @@
     "@fastify/middie": "^9.0.2",
     "@fastify/postgres": "^6.0.1",
     "@fastify/routes": "^6.0.1",
-    "@sequelize/core": "^7.0.0-alpha.42",
-    "@sequelize/postgres": "^7.0.0-alpha.43",
+    "@prisma/client": "^6.7.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
@@ -25,6 +21,7 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
+    "prisma": "^6.7.0",
     "sequelize": "^6.37.5"
   },
   "scripts": {

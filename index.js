@@ -3,11 +3,11 @@ import cors from "@fastify/cors";
 import fastifyJwt from "@fastify/jwt";
 import fastifyCookie from "@fastify/cookie"; 
 import dotenv from "dotenv";
-import { connectDbSequelize } from "./database/sequelizeConnection.js";
 import authRoutes from "./routes/auth_routes.js";
 import workspaceRoutes from "./routes/workspace_routes.js";
 import docRoutes from "./routes/documento_routes.js";
 import authMiddleware from "./middleware/auth_middleware.js";
+import prismaPlugin from "./plugins/prisma.js";
 
 const fastify = Fastify({ logger: true });
 
@@ -37,6 +37,7 @@ fastify.register(cors, {
   credentials: true,  
 });
 
+fastify.register(prismaPlugin);
 
 fastify.register(authRoutes, { prefix: "/api/auth" });
 fastify.register(workspaceRoutes, { prefix: "/api/workspaces" });
@@ -44,7 +45,6 @@ fastify.register(docRoutes, { prefix: "/api/docs" });
 
 const start = async () => {
   try {
-    await connectDbSequelize();
     await fastify.listen({ port: 3000, host: '0.0.0.0' });
     console.log("server listening on port 3000");
   } catch (err) {

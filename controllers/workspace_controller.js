@@ -1,4 +1,4 @@
-import * as WorkspaceModel from "../models/workspace_model.js";
+import * as WorkspaceRepository from "../repository/workspace_repository.js";
 
 const getWorkspaces = async (req, reply) => {
   try {
@@ -7,7 +7,7 @@ const getWorkspaces = async (req, reply) => {
     }
     
     const userId = req.user.userId;
-    const workspaces = await WorkspaceModel.getWorkspacesByUser(userId);
+    const workspaces = await WorkspaceRepository.getWorkspacesByUser(userId);
     return reply.send(workspaces);
   } catch (error) {
     console.error("Get workspaces error:", error);
@@ -22,7 +22,7 @@ const getWorkspace = async (req, reply) => {
     }
     
     const { id } = req.params;
-    const workspace = await WorkspaceModel.findWorkspaceById(id);
+    const workspace = await WorkspaceRepository.findWorkspaceById(id);
     if (!workspace) {
       return reply.status(404).send({ error: "Workspace not found" });
     }
@@ -44,7 +44,7 @@ const addWorkspace = async (req, reply) => {
       workspaceAuthor: req.user.userId
     };
     
-    const newWorkspace = await WorkspaceModel.createWorkspace(workspace);
+    const newWorkspace = await WorkspaceRepository.createWorkspace(workspace);
     return reply.status(201).send(newWorkspace);
   } catch (error) {
     console.error("Create workspace error:", error);
@@ -59,7 +59,7 @@ const removeWorkspace = async (req, reply) => {
     }
     
     const { id } = req.params;
-    const deletedWorkspace = await WorkspaceModel.deleteWorkspace(id);
+    const deletedWorkspace = await WorkspaceRepository.deleteWorkspace(id);
     if (!deletedWorkspace) {
       return reply.status(404).send({ error: "Workspace not found" });
     }
@@ -78,7 +78,7 @@ const modifyWorkspace = async (req, reply) => {
     
     const { id } = req.params;
     const workspace = req.body;
-    const updatedWorkspace = await WorkspaceModel.updateWorkspace(id, workspace);
+    const updatedWorkspace = await WorkspaceRepository.updateWorkspace(id, workspace);
     if (!updatedWorkspace) {
       return reply.status(404).send({ error: "Workspace not found" });
     }
