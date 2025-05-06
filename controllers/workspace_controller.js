@@ -41,7 +41,7 @@ const addWorkspace = async (req, reply) => {
     
     const workspace = {
       ...req.body,
-      workspaceAuthor: req.user.userId
+      workspaceAuthorId: req.user.userId
     };
     
     const newWorkspace = await WorkspaceRepository.createWorkspace(workspace);
