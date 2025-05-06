@@ -8,7 +8,7 @@ export const getDocumentList = async () => {
       id: true,
       name: true,
       content: true,
-      userId: true,
+      documentAuthor: true,
       workspaceId: true,
     },
   });
@@ -25,7 +25,7 @@ export const findDocumentById = async (id) => {
         id: true,
         name: true,
         content: true,
-        userId: true,
+        documentAuthor: true,
         workspaceId: true,
       },
     });

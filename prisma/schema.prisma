@@ -28,6 +28,7 @@ model Workspace {
   name String
   workspaceAuthor User @relation(fields: [workspaceAuthorId], references: [id])
   workspaceAuthorId Int
+  documents Document[]
 }
 
 model Document {
@@ -35,5 +36,7 @@ model Document {
   name String
   content String
   documentAuthor User @relation(fields: [documentAuthorId], references: [id])
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
+  workspaceId Int
   documentAuthorId Int
-}
+} 
