@@ -1,7 +1,7 @@
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import fastifyJwt from "@fastify/jwt";
-import fastifyCookie from "@fastify/cookie";  // Ajoutez cette importation
+import fastifyCookie from "@fastify/cookie"; 
 import dotenv from "dotenv";
 import { connectDbSequelize } from "./database/sequelizeConnection.js";
 import authRoutes from "./routes/auth_routes.js";
@@ -13,9 +13,8 @@ const fastify = Fastify({ logger: true });
 
 dotenv.config();
 
-// Enregistrez le plugin cookie AVANT les routes et autres plugins
+
 fastify.register(fastifyCookie, {
-  // La clé secrète est optionnelle et utilisée uniquement si vous signez les cookies
   secret: process.env.COOKIE_SECRET || process.env.JWT_SECRET,
 });
 
@@ -25,7 +24,6 @@ fastify.register(fastifyJwt, {
 
 fastify.register(authMiddleware);
 
-// Configurez CORS avec credentials:true
 fastify.register(cors, {
   origin: (origin, cb) => {
     const allowedOrigins = [process.env.FRONTEND_URL];
@@ -36,10 +34,10 @@ fastify.register(cors, {
     cb(new Error("Not allowed"), false);
   },
   methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,  // Important pour les cookies
+  credentials: true,  
 });
 
-// Enregistrez les routes APRÈS le plugin cookie
+
 fastify.register(authRoutes, { prefix: "/api/auth" });
 fastify.register(workspaceRoutes, { prefix: "/api/workspaces" });
 fastify.register(docRoutes, { prefix: "/api/docs" });
