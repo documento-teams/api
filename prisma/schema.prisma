@@ -19,7 +19,6 @@ model User {
   fullname String
   email String
   password String
-  active Boolean
   workspace Workspace[]
   document Document[]
 }
